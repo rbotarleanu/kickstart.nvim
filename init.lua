@@ -190,6 +190,18 @@ vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right win
 vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
 vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 
+--- These are to cancel the default behavior of d, D, c, C
+---  to put the text they delete in the default register.
+---  Note that this means e.g. "ad won't copy the text into
+---  register a anymore.  You have to explicitly yank it.
+vim.keymap.set('v', 'd', '"_d', {desc="Do not put deleted text in the default register"})
+vim.keymap.set('n', 'D', '"_D', {desc="Do not put deleted text in the default register"})
+vim.keymap.set('v', 'D', '"_D', {desc="Do not put deleted text in the default register"})
+vim.keymap.set('n', 'c', '"_c', {desc="Do not put deleted text in the default register"})
+vim.keymap.set('v', 'c', '"_c', {desc="Do not put deleted text in the default register"})
+vim.keymap.set('n', 'C', '"_C', {desc="Do not put deleted text in the default register"})
+vim.keymap.set('v', 'C', '"_C', {desc="Do not put deleted text in the default register"})
+
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
 
