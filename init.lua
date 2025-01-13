@@ -192,13 +192,17 @@ vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper win
 ---  to put the text they delete in the default register.
 ---  Note that this means e.g. "ad won't copy the text into
 ---  register a anymore.  You have to explicitly yank it.
-vim.keymap.set('v', 'd', '"_d', {desc="Do not put deleted text in the default register"})
-vim.keymap.set('n', 'D', '"_D', {desc="Do not put deleted text in the default register"})
-vim.keymap.set('v', 'D', '"_D', {desc="Do not put deleted text in the default register"})
-vim.keymap.set('n', 'c', '"_c', {desc="Do not put deleted text in the default register"})
-vim.keymap.set('v', 'c', '"_c', {desc="Do not put deleted text in the default register"})
-vim.keymap.set('n', 'C', '"_C', {desc="Do not put deleted text in the default register"})
-vim.keymap.set('v', 'C', '"_C', {desc="Do not put deleted text in the default register"})
+vim.keymap.set('v', 'd', '"_d', { desc = 'Do not put deleted text in the default register' })
+vim.keymap.set('n', 'D', '"_D', { desc = 'Do not put deleted text in the default register' })
+vim.keymap.set('v', 'D', '"_D', { desc = 'Do not put deleted text in the default register' })
+vim.keymap.set('n', 'c', '"_c', { desc = 'Do not put deleted text in the default register' })
+vim.keymap.set('v', 'c', '"_c', { desc = 'Do not put deleted text in the default register' })
+vim.keymap.set('n', 'C', '"_C', { desc = 'Do not put deleted text in the default register' })
+vim.keymap.set('v', 'C', '"_C', { desc = 'Do not put deleted text in the default register' })
+
+-- tab as four spaces
+vim.opt.tabstop = 4
+vim.opt.shiftwidth = 4
 
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
@@ -240,6 +244,14 @@ vim.opt.rtp:prepend(lazypath)
 require('lazy').setup({
   -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
   'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
+  {
+    'iamcco/markdown-preview.nvim',
+    cmd = { 'MarkdownPreviewToggle', 'MarkdownPreview', 'MarkdownPreviewStop' },
+    ft = { 'markdown' },
+    build = function()
+      vim.fn['mkdp#util#install']()
+    end,
+  },
 
   -- NOTE: Plugins can also be added by using a table,
   -- with the first argument being the link and the following
@@ -625,7 +637,6 @@ require('lazy').setup({
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
       local servers = {
         -- clangd = {},
-        -- gopls = {},
         -- pyright = {},
         -- rust_analyzer = {},
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
@@ -637,6 +648,8 @@ require('lazy').setup({
         -- ts_ls = {},
         --
 
+        zls = {},
+        gopls = {},
         lua_ls = {
           -- cmd = { ... },
           -- filetypes = { ... },
